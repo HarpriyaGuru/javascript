@@ -3,9 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>clock</title>
+    <title>Digital Clock</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+        .time {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+        .day {
+            font-size: 24px;
+            color: gray;
+        }
+    </style>
 </head>
 <body>
-    
+    <h1>Digital Clock</h1>
+    <div class="time" id="time"></div>
+    <div class="day" id="day"></div>
+
+    <script>
+        function updateClock() {
+            const time = document.getElementById("time");
+            const day = document.getElementById("day");
+            const clock = new Date();
+
+            let h = clock.getHours();
+            let m = clock.getMinutes();
+            let s = clock.getSeconds();
+            let d = clock.getDate();
+            let mo = clock.getMonth() + 1; // Months start from 0
+            let y = clock.getFullYear();
+
+            // Add leading zero if needed
+            h = h < 10 ? "0" + h : h;
+            m = m < 10 ? "0" + m : m;
+            s = s < 10 ? "0" + s : s;
+            d = d < 10 ? "0" + d : d;
+            mo = mo < 10 ? "0" + mo : mo;
+
+            time.innerText = `${h}:${m}:${s}`;
+            day.innerText = `${d}/${mo}/${y}`;
+        }
+
+        updateClock(); // Initial call
+        setInterval(updateClock, 1000); // Update every second
+    </script>
 </body>
 </html>
