@@ -1,60 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>todo App</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Todo App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      padding: 40px;
+      text-align: center;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 250px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 15px;
+      margin-left: 5px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      font-size: 14px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #msg {
+      color: red;
+      margin: 10px 0;
+    }
+
+    li {
+      list-style: none;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      margin: 10px auto;
+      max-width: 400px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    li span {
+      flex: 1;
+      text-align: left;
+    }
+
+    li button {
+      margin-left: 8px;
+    }
+  </style>
 </head>
 <body>
-    <input type="text " id="input">
-    <button onclick="addTask()">add</button>
-    <div id="msg"></div>
-    <div id="list"></div>
+  <h1>Todo App</h1>
+  <input type="text" id="input" placeholder="Enter your task..." />
+  <button onclick="addTask()">Add</button>
+  <div id="msg"></div>
+  <ul id="list"></ul>
 
-    <script>
-        const input=document.getElementById("input");
-        const msg=document.getElementById("msg");
-        const list=document.getElementById("list");
-        let spanEdit= null;
-         let task=input.value;
-        function addTask(){
-            let task=input.value;
-            if(task=="")
-            {
-            msg.innerHTML="<h1>please enter task</h1>";
-            return
-            }
-            else{
-                msg.innerHTML="";
-            }
-            if(spanEdit){
-             spanEdit.innerText=task;
-            spanEdit=null;
-            }
-            else{
-            let li=document.createElement("li");
-            li.innerHTML=`<span>${task}</span>
-                                <button onclick="done(this)">Done</button>
-                                <button onclick="edit(this)">Edit</button>
-                                <button onclick="del(this)">delete</button>`
-            list.appendChild(li);
-            input.value=""
-           
-            } }       
-        
-        function done(task){
-            let span=task.parentElement.querySelector("span");
-            span.style.color="grey";
-            span.style.textDecoration="line-through"
-        }
-        function edit(button) {
-      spanEdit = button.parentElement.querySelector("span");
+  <script>
+    const input = document.getElementById("input");
+    const msg = document.getElementById("msg");
+    const list = document.getElementById("list");
+    let spanEdit = null;
+
+    function addTask() {
+      let task = input.value.trim();
+      if (task === "") {
+        msg.innerHTML = "<h3>Please enter a task</h3>";
+        return;
+      } else {
+        msg.innerHTML = "";
+      }
+
+      if (spanEdit) {
+        spanEdit.innerText = task;
+        spanEdit = null;
+      } else {
+        let li = document.createElement("li");
+        li.innerHTML = `
+          <span>${task}</span>
+          <div>
+            <button onclick="done(this)">Done</button>
+            <button onclick="edit(this)">Edit</button>
+            <button onclick="del(this)">Delete</button>
+          </div>`;
+        list.appendChild(li);
+      }
+
+      input.value = "";
+    }
+
+    function done(button) {
+      const span = button.parentElement.parentElement.querySelector("span");
+      span.style.color = "gray";
+      span.style.textDecoration = "line-through";
+    }
+
+    function edit(button) {
+      spanEdit = button.parentElement.parentElement.querySelector("span");
       input.value = spanEdit.innerText;
       input.focus();
     }
-        function del(task){
-                task.parentElement.remove()
-            }
-    </script>
+
+    function del(button) {
+      button.parentElement.parentElement.remove();
+    }
+  </script>
 </body>
 </html>

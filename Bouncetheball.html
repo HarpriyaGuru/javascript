@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Moving Cursor</title>
+  <style>
+    body {
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    .container {
+      height: 100vh;
+      background-color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .container h1 {
+      color: white;
+      font-size: 50px;
+    }
+
+    .cursor {
+      height: 30px;
+      width: 30px;
+      background-color: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      transition: transform 0.05s linear;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Moving Cursor</h1>
+    <div class="cursor"></div>
+  </div>
+
+  <script>
+    const cursor = document.querySelector(".cursor");
+
+    document.addEventListener("mousemove", (e) => {
+      cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COLOR fLIPPER</title>
+</head>
+<body>
+    <h2>click on button to change background color</h2>
+    <h1>COLOR fLIPPER</h1>
+        <button onclick="changeColor()">Flip Color</button>
+
+
+        <script>
+            function changeColor(){
+
+                let r=Math.floor(Math.random()*256);
+                let g=Math.floor(Math.random()*256);
+                let b=Math.floor(Math.random()*256);
+                 let color=`rgb(${r},${g},${b})`
+                document.body.style.backgroundColor=color;
+            }
+        </script>
+</body>
+</html>

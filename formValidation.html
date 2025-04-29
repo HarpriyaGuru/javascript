@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Validation</title>
+  </head>
+  <body>
+    <div class="form2">
+      <form onsubmit="submitForm(event)">
+        <input type="text" id="name" placeholder="enter name" /><br />
+        <div id="errorName" style="color: red"></div>
+
+        <input type="text" id="email" placeholder="enter email" /><br />
+        <div id="errorEmail" style="color: red"></div>
+
+        <input type="text" id="password" placeholder="enter password" /><br />
+        <div id="errorPassword" style="color: red"></div>
+
+        <button type="submit">Submit</button>
+      </form>
+      <div id="data"></div>
+    </div>
+
+    <script>
+      const submitForm = (event) => {
+        event.preventDefault();
+
+        let errorName = document.getElementById("errorName");
+        let errorEmail = document.getElementById("errorEmail");
+        let errorPassword = document.getElementById("errorPassword");
+        let data = document.getElementById("data");
+        // data.textContent="";
+
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+
+        let hasError = false;
+
+        // Validation for name
+        const nameRegex = /^[A-Za-z\s]+$/;
+
+        if (name === "") {
+          errorName.textContent = "Please enter the name";
+          hasError = true;
+        } else if (!nameRegex.test(name)) {
+          errorName.textContent = "Name can only contain letters and spaces";
+          hasError = true;
+        } else {
+          errorName.textContent = "";
+        }
+
+        // validate email
+        let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (email === "") {
+          errorEmail.textContent = "Please enter the email";
+          hasError = true;
+        } else if(!emailRegex.test(email)){
+          errorEmail.textContent = "Enter valid email address";
+          hasError = true; 
+        }
+        else{
+          errorEmail.textContent = "";
+        }
+
+        // Validation for password
+        let passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        if (password === "") {
+          errorPassword.textContent = "Please enter the password";
+          hasError = true;
+        }
+        else if(!passwordRegex.test(password))
+        {
+          errorPassword.textContent = "Password must be at least 8 characters long and include at least one letter and one number";
+          hasError=true;
+        }
+         else {
+          errorPassword.textContent = "";
+        }
+
+        // If no errors, log the values
+        if (!hasError) {
+          data.innerHTML = `<h3>
+                        name=>${name}<br>
+                        email=>${email}<br>
+                        password=>${password}
+                        </h3>`;
+          // You need to reference the actual input elements like this:
+          document.getElementById("name").value = "";
+          document.getElementById("email").value = "";
+          document.getElementById("password").value = "";
+        }
+      };
+    </script>
+  </body>
+</html>
